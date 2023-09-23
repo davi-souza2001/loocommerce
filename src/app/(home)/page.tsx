@@ -1,5 +1,7 @@
+'use client'
 import { Card } from './components/Card'
 import GraphicCard from './components/GraphicCard'
+import { ProductList } from './components/ProductList'
 
 export default function Home() {
   return (
@@ -15,9 +17,10 @@ export default function Home() {
         </h2>
         <div className="w-full flex">
           <GraphicCard title="Pedidos do mês" select>
-            <p>asd</p>
+            asd
           </GraphicCard>
         </div>
+        <ProductList />
       </div>
     </main>
   )
