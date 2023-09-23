@@ -13,7 +13,7 @@ export function SideBar() {
   }
 
   return (
-    <aside className="h-56 w-16 absolute left-4 top-20 text-black rounded-md shadow-md">
+    <aside className="h-56 w-16 fixed left-4 top-20 text-black rounded-md shadow-md">
       <div className="h-full w-full flex flex-col items-center justify-start">
         <div className="h-1/4 w-full flex items-center justify-center shadow-sm">
           <button>

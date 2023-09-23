@@ -14,14 +14,15 @@ interface GraphicCardProps {
 
 export default function GraphicCard(props: GraphicCardProps) {
   return (
-    <ChakraCard className="min-h-40 w- mr-5">
-      <CardHeader className="mb-[-30PX] w-[400px] flex items-center justify-between">
+    <ChakraCard className="min-h-40 mr-5">
+      <CardHeader className="mb-[-30PX] w-full flex items-center justify-between">
         <Heading size="sm">{props.title}</Heading>
         {props?.select && (
           <Select
             defaultValue={'ano'}
             placeholder="Ano"
-            width={'40'}
+            height={'9'}
+            width={'52'}
             backgroundColor={'gray.200'}
           >
             <option value="option2">Mês</option>
