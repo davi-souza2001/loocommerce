@@ -1,4 +1,5 @@
 import { Card } from './components/Card'
+import GraphicCard from './components/GraphicCard'
 
 export default function Home() {
   return (
@@ -13,7 +14,9 @@ export default function Home() {
           Dashboard de vendas
         </h2>
         <div className="w-full flex">
-          <Card />
+          <GraphicCard title="Pedidos do mês" select>
+            <p>asd</p>
+          </GraphicCard>
         </div>
       </div>
     </main>
