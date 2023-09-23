@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { Header } from './components/Header'
 import { SideBar } from './components/SideBar'
+import { SideBarProvider } from '@/service/context/SideBarContext'
 
 export const metadata: Metadata = {
   title: 'Loocommerce - Home',
@@ -14,9 +15,11 @@ export default function HomeLayout({
 }) {
   return (
     <>
-      <Header />
-      <SideBar />
-      {children}
+      <SideBarProvider>
+        <Header />
+        <SideBar />
+        {children}
+      </SideBarProvider>
     </>
   )
 }
