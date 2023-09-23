@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { Header } from './components/Header'
+import { SideBar } from './components/SideBar'
 
 export const metadata: Metadata = {
   title: 'Loocommerce - Home',
@@ -14,6 +15,7 @@ export default function HomeLayout({
   return (
     <>
       <Header />
+      <SideBar />
       {children}
     </>
   )

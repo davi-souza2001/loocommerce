@@ -4,7 +4,7 @@ export function Header() {
   return (
     <header className="h-16 w-full flex items-center justify-between shadow-md">
       <div className="h-full w-20 flex items-center justify-center">
-        <div className="h-14 w-14 rounded-full bg-yellow-500" />
+        <div className="h-14 w-14 rounded-full bg-red-500" />
       </div>
       <div className="h-full w-28 flex items-center justify-around">
         <p>Davi</p>
