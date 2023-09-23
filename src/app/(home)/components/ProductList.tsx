@@ -1,4 +1,4 @@
-'use'
+'use client'
 import {
   Card as ChakraCard,
   CardBody,
@@ -6,13 +6,14 @@ import {
   Select,
   Heading,
 } from '@chakra-ui/react'
+import { Table } from './Table'
 
 export function ProductList() {
   return (
-    <ChakraCard className="min-h-40 mr-10 mt-12" backgroundColor={'red.500'}>
+    <ChakraCard className="min-h-40 mr-10 mt-12">
       <CardHeader className="mb-[-30PX] flex items-center justify-between">
         <Heading>
-          <h2 className="text-2xl font-semibold">Listagem do produtos</h2>
+          <p className="text-2xl font-semibold">Listagem do produtos</p>
         </Heading>
         <Select
           defaultValue={'ano'}
@@ -24,7 +25,9 @@ export function ProductList() {
           <option value="option3">Dia</option>
         </Select>
       </CardHeader>
-      <CardBody></CardBody>
+      <CardBody className="flex">
+        <Table />
+      </CardBody>
     </ChakraCard>
   )
 }
