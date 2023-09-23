@@ -1,6 +1,7 @@
 'use client'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { Button, useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,6 +25,7 @@ type CreateLoginFormData = z.infer<typeof createLoginFormSchema>
 
 export default function Login() {
   const toast = useToast()
+  const { push } = useRouter()
 
   const {
     register,
@@ -36,6 +38,7 @@ export default function Login() {
   async function handleLoginUser(data: CreateLoginFormData) {
     try {
       alert(data)
+      push('/')
     } catch (error: any) {
       toast({
         title: 'Erro ao cadastrar!',

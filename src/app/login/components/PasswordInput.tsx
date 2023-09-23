@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
-import { Button, Input, useToast, Collapse, Text, Icon } from '@chakra-ui/react'
+import { Button, Input, Text, Icon } from '@chakra-ui/react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 interface PasswordInputProps {
