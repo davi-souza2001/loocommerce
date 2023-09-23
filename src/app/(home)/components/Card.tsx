@@ -14,7 +14,7 @@ interface CardProps {
 
 export function Card(props: CardProps) {
   return (
-    <ChakraCard className="min-h-40 w-64">
+    <ChakraCard className="min-h-40 w-64 shadow-md">
       <CardHeader className="mb-[-30PX]">
         <Heading size="sm"> {props.title}</Heading>
       </CardHeader>

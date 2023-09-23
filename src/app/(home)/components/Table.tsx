@@ -1,69 +1,113 @@
-import {
-  Table as TableUI,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 import Image from 'next/image'
 import Chair from '../../../../public/chair.png'
 import { BiCheck } from 'react-icons/bi'
 import { Icon } from '@chakra-ui/react'
 
+interface products {
+  nome: string
+  cores: string
+  especificacoes: string[]
+  status: string
+}
+
+interface TableProps {
+  data: products[]
+  currentPage: number
+  itemsPerPage: number
+}
+
 export function Table() {
+  const products: products[] = [
+    {
+      nome: 'Banco Cajá',
+      cores: 'Madeira escura; Madeira média',
+      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
+      status: 'Ativo',
+    },
+    {
+      nome: 'Produto 2',
+      cores: 'Madeira escura; Madeira média',
+      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
+      status: 'Inativo',
+    },
+    {
+      nome: 'Produto 3',
+      cores: 'Madeira escura; Madeira média',
+      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
+      status: 'Inativo',
+    },
+    {
+      nome: 'Produto 4',
+      cores: 'Madeira escura; Madeira média',
+      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
+      status: 'Inativo',
+    },
+    {
+      nome: 'Produto 5',
+      cores: 'Madeira escura; Madeira média',
+      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
+      status: 'Inativo',
+    },
+    {
+      nome: 'Produto 6',
+      cores: 'Madeira escura; Madeira média',
+      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
+      status: 'Inativo',
+    },
+  ]
+
+  function renderTableData({ currentPage, data, itemsPerPage }: TableProps) {
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    const currentItems = data.slice(startIndex, endIndex)
+
+    return (
+      <table className="min-w-full border-collapse rounded-md">
+        <thead className="h-10 bg-gray-700 text-white">
+          <tr>
+            <th className="border-r-none w-1/4 p-3 rounded-l-md">PRODUTOS</th>
+            <th className="border-l-none w-2/4 p-3">CORES</th>
+            <th className="border w-2/4 p-3">ESPECIFICAÇÕES</th>
+            <th className="border w-2/4 p-3 rounded-r-md">STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentItems.map((product, index) => (
+            <tr key={index}>
+              <td className="border-b p-3">
+                <div className="flex items-center justify-start">
+                  <Image
+                    alt="product image"
+                    src={Chair}
+                    height={60}
+                    width={60}
+                    className="rounded-md"
+                  />
+                  <p className="ml-2">{product.nome}</p>
+                </div>
+              </td>
+              <td className="border p-3">{product.cores}</td>
+              <td className="border p-3">{product.especificacoes}</td>
+              <td className="border p-3">
+                <div className="flex items-center justify-center">
+                  {product.status}
+                  <Icon as={BiCheck} height={5} width={5} />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+  }
+
   return (
-    <TableUI className="w-full">
-      <TableHeader>
-        <TableRow>
-          <TableHead className="h-10 font-medium text-sm rounded-md text-white bg-gray-700">
-            PRODUTO
-          </TableHead>
-          <TableHead className="h-10 font-medium text-sm rounded-l-md text-white bg-gray-700">
-            CORES
-          </TableHead>
-          <TableHead className="h-10 font-medium text-sm text-white bg-gray-700">
-            ESPECIFICAÇÕES
-          </TableHead>
-          <TableHead className="h-10 font-medium text-sm rounded-r-md text-white bg-gray-700">
-            STATUS
-          </TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell className="font-medium flex items-center justify-start">
-            <Image
-              alt="product example image"
-              src={Chair}
-              height={70}
-              width={70}
-              className="rounded-md ml-5"
-            />
-            <p className="ml-5"> Banco Cajá</p>
-          </TableCell>
-          <TableCell className="font-medium">
-            Madeira escura; Madeira média
-          </TableCell>
-          <TableCell className="font-medium">
-            <p className="w-fit bg-gray-300 p-1 rounded-md text-xs break-keep">
-              banco
-            </p>
-            <p className="w-fit bg-gray-300 p-1 rounded-md text-xs break-keep">
-              sem braço
-            </p>
-            <p className="w-fit bg-gray-300 p-1 rounded-md text-xs break-keep">
-              sala de jantar
-            </p>
-            <p className="w-fit bg-gray-300 p-1 rounded-md text-xs break-keep">
-              madeira natural
-            </p>
-          </TableCell>
-          <TableCell className="font-medium flex items-center justify-center">
-            Ativo <Icon as={BiCheck} height={5} width={5} />
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    </TableUI>
+    <>
+      {renderTableData({
+        data: products,
+        currentPage: 1,
+        itemsPerPage: 3,
+      })}
+    </>
   )
 }

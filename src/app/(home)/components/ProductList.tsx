@@ -3,10 +3,13 @@ import {
   Card as ChakraCard,
   CardBody,
   CardHeader,
-  Select,
   Heading,
+  Icon,
+  Input,
+  Button,
 } from '@chakra-ui/react'
 import { Table } from './Table'
+import { BiSearch } from 'react-icons/bi'
 
 export function ProductList() {
   return (
@@ -15,15 +18,23 @@ export function ProductList() {
         <Heading>
           <p className="text-2xl font-semibold">Listagem do produtos</p>
         </Heading>
-        <Select
-          defaultValue={'ano'}
-          placeholder="Ano"
-          width={'40'}
-          backgroundColor={'gray.200'}
-        >
-          <option value="option2">Mês</option>
-          <option value="option3">Dia</option>
-        </Select>
+        <div className="flex items-center justify-center">
+          <Input
+            placeholder="$%-#4&21-*!@"
+            size="sm"
+            backgroundColor={'gray.200'}
+            borderRightRadius={0}
+            height={'10'}
+          />
+          <Button
+            height={'10'}
+            size="sm"
+            backgroundColor={'gray.200'}
+            borderLeftRadius={0}
+          >
+            <Icon as={BiSearch} height={5} width={5} />
+          </Button>
+        </div>
       </CardHeader>
       <CardBody className="flex">
         <Table />
