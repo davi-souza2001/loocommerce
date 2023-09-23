@@ -96,7 +96,7 @@ export default function Login() {
 
             <ErrorMessage error={errors?.password?.message} />
 
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full flex items-center justify-center font-roboto">
               <Button
                 type="submit"
                 className="w-1/2 text-white mt-10"
