@@ -65,8 +65,8 @@ export function Table() {
       <table className="min-w-full border-collapse rounded-md">
         <thead className="h-10 bg-gray-700 text-white">
           <tr>
-            <th className="border-r-none w-1/4 p-3 rounded-l-md">PRODUTOS</th>
-            <th className="border-l-none w-2/4 p-3">CORES</th>
+            <th className="border w-1/4 p-3 rounded-l-md">PRODUTOS</th>
+            <th className="border w-2/4 p-3">CORES</th>
             <th className="border w-2/4 p-3">ESPECIFICAÇÕES</th>
             <th className="border w-2/4 p-3 rounded-r-md">STATUS</th>
           </tr>
