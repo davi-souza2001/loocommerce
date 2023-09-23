@@ -26,8 +26,34 @@ export default function Home() {
       <div className="w-28" />
       <div className="w-full mt-16">
         <h1 className="text-2xl font-semibold my-8 ml-10">Início</h1>
-        <div className="w-full flex">
-          <Card />
+        <div className="w-full grid min-[1618px]:grid-cols-6 min-[1156px]:grid-cols-4 grid-cols-3 gap-5 overflow-x-auto scrollbar-none ">
+          <Card
+            title="Ticket médio últimas 24h"
+            subtitle="+15%"
+            details="em relação a ontem"
+          />
+          <Card
+            title="Ticket médio mensal"
+            subtitle="+15%"
+            details="em relação a julho"
+          />
+          <Card title="Produtos em manutenção" subtitle="há 5 dias" negative />
+          <Card
+            title="Acabando o estoque"
+            subtitle="há 5 dias"
+            negative
+            details="repor o quanto antes"
+          />
+          <Card
+            title="Pedidos realizados no mês"
+            subtitle="+15%"
+            details="em relação a julho"
+          />
+          <Card
+            title="Produtos vendidos no mês"
+            subtitle="+15%"
+            details="em relação a julho"
+          />
         </div>
         <h2 className="text-2xl font-semibold text-purple-800 my-8 ml-10">
           Dashboard de vendas
