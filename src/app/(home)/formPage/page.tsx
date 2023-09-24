@@ -102,6 +102,9 @@ export default function FormPage() {
                 valueSubtitle={register('subtitle')}
                 valueInformations={register('informations')}
                 valueCleanup={register('cleanup')}
+                errorsSubtitle={errors.subtitle?.message}
+                errorsInformations={errors.informations?.message}
+                errorsCleanup={errors.cleanup?.message}
               />
             </div>
             <div className="h-full w-full bg-green-200">
