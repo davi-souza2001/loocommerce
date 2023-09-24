@@ -3,14 +3,13 @@ import { HiOutlineMenuAlt2 } from 'react-icons/hi'
 import { HiOutlineSquare3Stack3D, HiOutlineTruck } from 'react-icons/hi2'
 import { BiHomeAlt2 } from 'react-icons/bi'
 import { Icon } from '@chakra-ui/react'
-import UseSideBar from '@/service/hooks/UseSideBar'
+import { useState } from 'react'
+import Link from 'next/link'
 
 export function SideBar() {
-  const { pageSelected, setPageSelected } = UseSideBar()
-
-  function handlePageSelected(page: 'home' | 'form' | 'map') {
-    setPageSelected(page)
-  }
+  const [pageSelected, setPageSelected] = useState<'home' | 'form' | 'map'>(
+    'home',
+  )
 
   return (
     <aside className="h-56 w-16 fixed left-4 top-20 text-black rounded-md shadow-md">
@@ -26,8 +25,9 @@ export function SideBar() {
           </button>
         </div>
         <div className="h-3/5 w-ful flex flex-col items-center justify-around">
-          <button
-            onClick={() => handlePageSelected('home')}
+          <Link
+            href="/"
+            onClick={() => setPageSelected('home')}
             className={
               pageSelected === 'home'
                 ? 'bg-purple-600 p-2 rounded-md text-white transition-all hover:bg-purple-500'
@@ -35,9 +35,10 @@ export function SideBar() {
             }
           >
             <Icon as={BiHomeAlt2} height={5} width={5} />
-          </button>
-          <button
-            onClick={() => handlePageSelected('form')}
+          </Link>
+          <Link
+            href="/formPage"
+            onClick={() => setPageSelected('form')}
             className={
               pageSelected === 'form'
                 ? 'bg-purple-600 p-2 rounded-md text-white transition-all hover:bg-purple-500'
@@ -48,11 +49,12 @@ export function SideBar() {
               as={HiOutlineSquare3Stack3D}
               height={5}
               width={5}
-              className="transition-all hover:text-purple-500"
+              className="transition-all "
             />
-          </button>
-          <button
-            onClick={() => handlePageSelected('map')}
+          </Link>
+          <Link
+            href="/mapPage"
+            onClick={() => setPageSelected('map')}
             className={
               pageSelected === 'map'
                 ? 'bg-purple-600 p-2 rounded-md text-white transition-all hover:bg-purple-500'
@@ -63,9 +65,9 @@ export function SideBar() {
               as={HiOutlineTruck}
               height={5}
               width={5}
-              className="transition-all hover:text-purple-500"
+              className="transition-all "
             />
-          </button>
+          </Link>
         </div>
       </div>
     </aside>

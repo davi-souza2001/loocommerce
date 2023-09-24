@@ -70,12 +70,13 @@
 }
 
 *{
-  font-family: 'Poppins', sans-serif
+  font-family: 'Poppins', sans-serif;
+  border: 1px solid red
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border ;
   }
   body {
     @apply bg-background text-foreground;
