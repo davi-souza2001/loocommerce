@@ -22,10 +22,10 @@ export default function Home() {
   ]
 
   return (
-    <main className="w-full flex z-0">
+    <main className="w-full flex z-0 bg-background">
       <div className="w-28" />
       <div className="w-full mt-16">
-        <h1 className="text-2xl font-semibold my-8 ml-10">Início</h1>
+        <h1 className="text-2xl font-bold my-8 ml-10">Início</h1>
         <div className="w-full p-3 grid min-[1618px]:grid-cols-6 min-[1156px]:grid-cols-4 grid-cols-3 gap-5 overflow-x-auto scrollbar-none ">
           <Card
             title="Ticket médio últimas 24h"
@@ -55,7 +55,7 @@ export default function Home() {
             details="em relação a julho"
           />
         </div>
-        <h2 className="text-2xl font-semibold text-purple-800 my-8 ml-10">
+        <h2 className="text-2xl font-bold text-purple-800 my-8 ml-10">
           Dashboard de vendas
         </h2>
         <div className="w-full flex">

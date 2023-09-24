@@ -106,7 +106,7 @@ export default function Login() {
 
             <ErrorMessage error={errors?.password?.message} />
 
-            <div className="w-full flex items-center justify-center transition-all font-roboto">
+            <div className="w-full flex items-center justify-center transition-all">
               <button
                 type="submit"
                 className="w-1/2 text-white font-normal font-ubuntu mt-10 p-2 rounded-md bg-loomiPurple hover:purple-600"

@@ -1,10 +1,7 @@
 'use client'
-import { HiOutlineMenuAlt2 } from 'react-icons/hi'
-import { HiOutlineSquare3Stack3D, HiOutlineTruck } from 'react-icons/hi2'
-import { BiHomeAlt2 } from 'react-icons/bi'
-import { Icon } from '@chakra-ui/react'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function SideBar() {
   const [pageSelected, setPageSelected] = useState<'home' | 'form' | 'map'>(
@@ -12,17 +9,10 @@ export function SideBar() {
   )
 
   return (
-    <aside className="h-56 w-16 fixed left-4 top-20 text-black rounded-md shadow-md">
+    <aside className="h-56 w-16 fixed left-4 top-20 text-black rounded-md shadow-md bg-white">
       <div className="h-full w-full flex flex-col items-center justify-start">
         <div className="h-1/4 w-full flex items-center justify-center shadow-sm">
-          <button>
-            <Icon
-              as={HiOutlineMenuAlt2}
-              height={5}
-              width={5}
-              className="transition-all hover:text-purple-500"
-            />
-          </button>
+          <Image alt="menu logo" src="menu.svg" height={40} width={40} />
         </div>
         <div className="h-3/5 w-ful flex flex-col items-center justify-around">
           <Link
@@ -34,7 +24,23 @@ export function SideBar() {
                 : ''
             }
           >
-            <Icon as={BiHomeAlt2} height={5} width={5} />
+            {pageSelected === 'home' ? (
+              <Image
+                alt="home logo"
+                src="whiteHome.svg"
+                height={15}
+                width={15}
+                className="transition-all hover:text-purple-500"
+              />
+            ) : (
+              <Image
+                alt="home logo"
+                src="blackHome.svg"
+                height={38}
+                width={38}
+                className="transition-all hover:text-purple-500"
+              />
+            )}
           </Link>
           <Link
             href="/formPage"
@@ -45,12 +51,23 @@ export function SideBar() {
                 : ''
             }
           >
-            <Icon
-              as={HiOutlineSquare3Stack3D}
-              height={5}
-              width={5}
-              className="transition-all "
-            />
+            {pageSelected === 'form' ? (
+              <Image
+                alt="form logo"
+                src="whiteDivision.svg"
+                height={23}
+                width={23}
+                className="transition-all hover:text-purple-500"
+              />
+            ) : (
+              <Image
+                alt="form logo"
+                src="blackDivision.svg"
+                height={30}
+                width={30}
+                className="transition-all hover:text-purple-500"
+              />
+            )}
           </Link>
           <Link
             href="/mapPage"
@@ -61,12 +78,23 @@ export function SideBar() {
                 : ''
             }
           >
-            <Icon
-              as={HiOutlineTruck}
-              height={5}
-              width={5}
-              className="transition-all "
-            />
+            {pageSelected === 'map' ? (
+              <Image
+                alt="map logo"
+                src="whiteTruck.svg"
+                height={28}
+                width={28}
+                className="transition-all hover:text-purple-500"
+              />
+            ) : (
+              <Image
+                alt="map logo"
+                src="blackTruck.svg"
+                height={30}
+                width={30}
+                className="transition-all hover:text-purple-500"
+              />
+            )}
           </Link>
         </div>
       </div>

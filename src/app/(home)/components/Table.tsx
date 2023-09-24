@@ -63,7 +63,7 @@ export function Table() {
 
     return (
       <table className="min-w-full border-collapse rounded-md">
-        <thead className="h-10 bg-gray-700 text-white">
+        <thead className="h-10 bg-gray-700 font-bold text-white">
           <tr>
             <th className="border w-1/4 p-3 rounded-l-md">PRODUTOS</th>
             <th className="border w-2/4 p-3">CORES</th>
@@ -73,7 +73,7 @@ export function Table() {
         </thead>
         <tbody>
           {currentItems.map((product, index) => (
-            <tr key={index}>
+            <tr key={index} className="font-normal">
               <td className="border-b p-3">
                 <div className="flex items-center justify-start">
                   <Image
@@ -89,13 +89,20 @@ export function Table() {
               <td className="border p-3">{product.cores}</td>
               <td className="h-full border gap-7">
                 {product.especificacoes.map((item, index) => (
-                  <p key={index}>{item}</p>
+                  <p key={index} className="p-2">
+                    {item}
+                  </p>
                 ))}
               </td>
               <td className="border p-3">
                 <div className="flex items-center justify-center">
                   {product.status}
-                  <Icon as={BiCheck} height={5} width={5} />
+                  <Image
+                    alt="logo check"
+                    src={'check.svg'}
+                    height={28}
+                    width={28}
+                  />
                 </div>
               </td>
             </tr>

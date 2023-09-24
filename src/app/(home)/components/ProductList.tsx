@@ -16,14 +16,15 @@ export function ProductList() {
     <ChakraCard className="min-h-40 mr-10 mt-12">
       <CardHeader className="mb-[-30PX] flex items-center justify-between">
         <Heading>
-          <p className="text-2xl font-semibold">Listagem do produtos</p>
+          <p className="text-2xl font-normal">Listagem do produtos</p>
         </Heading>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center font-ubuntu">
           <Input
-            placeholder="$%-#4&21-*!@"
+            placeholder="Pesquisar produtos"
             size="sm"
             backgroundColor={'gray.200'}
             borderRightRadius={0}
+            borderLeftRadius={6}
             height={'10'}
           />
           <Button
