@@ -87,7 +87,11 @@ export function Table() {
                 </div>
               </td>
               <td className="border p-3">{product.cores}</td>
-              <td className="border p-3">{product.especificacoes}</td>
+              <td className="h-full border gap-7">
+                {product.especificacoes.map((item, index) => (
+                  <p key={index}>{item}</p>
+                ))}
+              </td>
               <td className="border p-3">
                 <div className="flex items-center justify-center">
                   {product.status}
