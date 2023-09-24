@@ -5,10 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ProductDetailsForm } from './components/ProductDetailsForm'
 import { ProductSelectForm } from './components/ProductSelectForm'
 import { ProductSpecificationForm } from './components/ProductSpecificationForm'
-import { Icon, Input, useToast, Text } from '@chakra-ui/react'
-import { Separator } from '@radix-ui/react-separator'
+import { Icon, useToast } from '@chakra-ui/react'
 import { BiPlus } from 'react-icons/bi'
-import { ErrorMessage } from '@/components/ErrorMessage'
+import { ProductItemsForm } from './components/ProductItemsForm'
 
 const createProductFormSchema = z.object({
   name: z.string().nonempty('O nome é obrigatório!'),
@@ -127,103 +126,18 @@ export default function FormPage() {
                     <p>Adicionar</p>
                   </button>
                 </div>
-                {fields.map((item, index) => {
+                {fields.map((_, index) => {
                   return (
                     <div key={index} className="h-full w-full mb-7">
-                      <div className="w-full flex items-center justify-between">
-                        <p className="mr-12">
-                          Item&nbsp;
-                          {`${index + 1 >= 10 ? index + 1 : `0${index + 1}`}`}
-                        </p>
-                        <Separator className="h-[1px] w-full bg-slate-600" />
-                      </div>
-                      <div className="h-full w-full mt-2 flex flex-col">
-                        <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
-                          <Text className="font-medium mr-9">Código: </Text>
-                          <Input
-                            size="sm"
-                            padding={'5'}
-                            borderRadius={'5'}
-                            backgroundColor={'gray.200'}
-                            {...register(`items.${index}.code`)}
-                          />
-                          {errors?.items ? (
-                            <ErrorMessage
-                              error={errors.items[index]?.code?.message}
-                            />
-                          ) : (
-                            false
-                          )}
-                        </div>
-                        <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
-                          <Text className="font-medium mr-16">Cor: </Text>
-                          <Input
-                            size="sm"
-                            padding={'5'}
-                            borderRadius={'5'}
-                            backgroundColor={'gray.200'}
-                            {...register(`items.${index}.color`)}
-                          />
-                          {errors?.items ? (
-                            <ErrorMessage
-                              error={errors.items[index]?.color?.message}
-                            />
-                          ) : (
-                            false
-                          )}
-                        </div>
-                        <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
-                          <Text className="font-medium mr-10">Tamanho: </Text>
-                          <Input
-                            size="sm"
-                            width={'16'}
-                            padding={'5'}
-                            borderRadius={'5'}
-                            backgroundColor={'gray.200'}
-                            {...register(`items.${index}.mxOne`)}
-                          />
-                          <p>m x</p>
-                          {errors?.items ? (
-                            <ErrorMessage
-                              error={errors.items[index]?.mxOne?.message}
-                            />
-                          ) : (
-                            false
-                          )}
-                          <Input
-                            size="sm"
-                            width={'16'}
-                            padding={'5'}
-                            borderRadius={'5'}
-                            backgroundColor={'gray.200'}
-                            {...register(`items.${index}.mxTwo`)}
-                          />
-                          <p>m x</p>
-                          {errors?.items ? (
-                            <ErrorMessage
-                              error={errors.items[index]?.mxTwo?.message}
-                            />
-                          ) : (
-                            false
-                          )}
-                          <Input
-                            size="sm"
-                            width={'16'}
-                            padding={'5'}
-                            borderRadius={'5'}
-                            backgroundColor={'gray.200'}
-                            {...register(`items.${index}.m`)}
-                          />
-                          <p>m</p>
-                          {errors?.items ? (
-                            <ErrorMessage
-                              error={errors.items[index]?.m?.message}
-                            />
-                          ) : (
-                            false
-                          )}
-                        </div>
-                      </div>
+                      <ProductItemsForm
+                        errors={errors}
+                        itemPosition={index}
+                        valueCode={register(`items.${index}.code`)}
+                        valueColor={register(`items.${index}.color`)}
+                        valueMxOne={register(`items.${index}.mxOne`)}
+                        valueMxTwo={register(`items.${index}.mxTwo`)}
+                        valueM={register(`items.${index}.m`)}
+                      />
                     </div>
                   )
                 })}
