@@ -2,6 +2,7 @@
 import { Icon, Input, Text } from '@chakra-ui/react'
 import { Separator } from '@radix-ui/react-separator'
 import { useState } from 'react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 import { BiPlus } from 'react-icons/bi'
 
 interface ItemProps {
@@ -12,7 +13,12 @@ interface ItemProps {
   m: string
 }
 
-export function ProductItemsForm() {
+interface ProductItemsFormProps {
+  fields: any[]
+  valueCode: UseFormRegisterReturn<'code'>
+}
+
+export function ProductItemsForm(props: ProductItemsFormProps) {
   const [items, setItems] = useState<ItemProps[]>([
     {
       code: '',
@@ -34,27 +40,6 @@ export function ProductItemsForm() {
     setItems([...items, newItem])
   }
 
-  function removeItem(index: number) {
-    const updatedItems = [...items]
-    updatedItems.splice(index, 1)
-    setItems(updatedItems)
-  }
-
-  function handleItemChange(
-    index: number,
-    field: keyof ItemProps,
-    value: string,
-  ) {
-    const updatedItems = [...items]
-    updatedItems[index][field] = value
-    setItems(updatedItems)
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    console.log(items)
-  }
-
   return (
     <div className="p-5 flex flex-col items-start justify-center">
       <div className="w-full flex items-center justify-between">
@@ -67,65 +52,67 @@ export function ProductItemsForm() {
           <p>Adicionar</p>
         </button>
       </div>
-      {items.map((item, index) => {
-        return (
-          <div key={index} className="h-full w-full mb-7">
-            <div className="w-full flex items-center justify-between">
-              <p className="mr-12">
-                Item&nbsp;{`${index + 1 >= 10 ? index + 1 : `0${index + 1}`}`}
-              </p>
-              <Separator className="h-[1px] w-full bg-slate-600" />
+      {props.fields &&
+        props.fields.map((item, index) => {
+          return (
+            <div key={index} className="h-full w-full mb-7">
+              <div className="w-full flex items-center justify-between">
+                <p className="mr-12">
+                  Item&nbsp;{`${index + 1 >= 10 ? index + 1 : `0${index + 1}`}`}
+                </p>
+                <Separator className="h-[1px] w-full bg-slate-600" />
+              </div>
+              <div className="h-full w-full mt-2 flex flex-col">
+                <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
+                  <Text className="font-medium mr-9">Código: </Text>
+                  <Input
+                    size="sm"
+                    padding={'5'}
+                    borderRadius={'5'}
+                    backgroundColor={'gray.200'}
+                    {...props.valueCode}
+                  />
+                </div>
+                <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
+                  <Text className="font-medium mr-16">Cor: </Text>
+                  <Input
+                    size="sm"
+                    padding={'5'}
+                    borderRadius={'5'}
+                    backgroundColor={'gray.200'}
+                  />
+                </div>
+                <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
+                  <Text className="font-medium mr-10">Tamanho: </Text>
+                  <Input
+                    size="sm"
+                    width={'16'}
+                    padding={'5'}
+                    borderRadius={'5'}
+                    backgroundColor={'gray.200'}
+                  />
+                  <p>m x</p>
+                  <Input
+                    size="sm"
+                    width={'16'}
+                    padding={'5'}
+                    borderRadius={'5'}
+                    backgroundColor={'gray.200'}
+                  />
+                  <p>m x</p>
+                  <Input
+                    size="sm"
+                    width={'16'}
+                    padding={'5'}
+                    borderRadius={'5'}
+                    backgroundColor={'gray.200'}
+                  />
+                  <p>m</p>
+                </div>
+              </div>
             </div>
-            <div className="h-full w-full mt-2 flex flex-col">
-              <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
-                <Text className="font-medium mr-9">Código: </Text>
-                <Input
-                  size="sm"
-                  padding={'5'}
-                  borderRadius={'5'}
-                  backgroundColor={'gray.200'}
-                />
-              </div>
-              <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
-                <Text className="font-medium mr-16">Cor: </Text>
-                <Input
-                  size="sm"
-                  padding={'5'}
-                  borderRadius={'5'}
-                  backgroundColor={'gray.200'}
-                />
-              </div>
-              <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
-                <Text className="font-medium mr-10">Tamanho: </Text>
-                <Input
-                  size="sm"
-                  width={'16'}
-                  padding={'5'}
-                  borderRadius={'5'}
-                  backgroundColor={'gray.200'}
-                />
-                <p>m x</p>
-                <Input
-                  size="sm"
-                  width={'16'}
-                  padding={'5'}
-                  borderRadius={'5'}
-                  backgroundColor={'gray.200'}
-                />
-                <p>m x</p>
-                <Input
-                  size="sm"
-                  width={'16'}
-                  padding={'5'}
-                  borderRadius={'5'}
-                  backgroundColor={'gray.200'}
-                />
-                <p>m</p>
-              </div>
-            </div>
-          </div>
-        )
-      })}
+          )
+        })}
     </div>
   )
 }
