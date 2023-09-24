@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import SideBarContext from '../context/SideBarContext'
+import AuthContext from '../context/AuthContext'
 
-const UseSideBar = () => useContext(SideBarContext)
+const UseAuth = () => useContext(AuthContext)
 
-export default UseSideBar
+export default UseAuth

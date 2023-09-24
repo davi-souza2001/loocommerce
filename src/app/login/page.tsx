@@ -3,11 +3,14 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { Button, useToast } from '@chakra-ui/react'
+import { Icon, useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EmailInput } from './components/EmailInput'
 import { PasswordInput } from './components/PasswordInput'
 import { ErrorMessage } from '@/components/ErrorMessage'
+import UseAuth from '@/service/hooks/UseSideBar'
+import { AiOutlineLoading } from 'react-icons/ai'
+import Image from 'next/image'
 
 const createLoginFormSchema = z.object({
   email: z
@@ -18,7 +21,7 @@ const createLoginFormSchema = z.object({
   password: z
     .string()
     .nonempty('A senha é obrigatória!')
-    .min(6, 'A senha precisa ter no mínimo 6 caracteres!'),
+    .min(4, 'A senha precisa ter no mínimo 4 caracteres!'),
 })
 
 type CreateLoginFormData = z.infer<typeof createLoginFormSchema>
@@ -26,6 +29,7 @@ type CreateLoginFormData = z.infer<typeof createLoginFormSchema>
 export default function Login() {
   const toast = useToast()
   const { push } = useRouter()
+  const { handleLogin, loading } = UseAuth()
 
   const {
     register,
@@ -37,7 +41,7 @@ export default function Login() {
 
   async function handleLoginUser(data: CreateLoginFormData) {
     try {
-      console.log(data)
+      await handleLogin(data)
       push('/')
     } catch (error: any) {
       toast({
@@ -76,11 +80,17 @@ export default function Login() {
   }, [errors])
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-black">
+    <div className="h-screen w-full flex items-center justify-center bg-background">
       <div className="h-full w-[700px] bg-white flex items-center justify-center p-6 rounded-lg shadow-md">
-        <div className="w-full flex flex-col items-center space-y-4">
-          <div className="w-20 h-20 rounded-full bg-red-500 mt-[-50px]" />
-          <h1 className="text-2xl font-medium text-black">
+        <div className="w-full flex flex-col items-center space-y-14">
+          <Image
+            alt="logo"
+            src={'logo.svg'}
+            className=" mt-[-50px]"
+            height={150}
+            width={150}
+          />
+          <h1 className="text-2xl font-semibold font-nunito text-black">
             Entrar na plataforma
           </h1>
           <form onSubmit={handleSubmit(handleLoginUser)} className="w-72">
@@ -96,18 +106,21 @@ export default function Login() {
 
             <ErrorMessage error={errors?.password?.message} />
 
-            <div className="w-full flex items-center justify-center font-roboto">
-              <Button
+            <div className="w-full flex items-center justify-center transition-all font-roboto">
+              <button
                 type="submit"
-                className="w-1/2 text-white mt-10"
-                backgroundColor={'purple.500'}
-                textColor={'white'}
-                _hover={{
-                  backgroundColor: 'purple.600',
-                }}
+                className="w-1/2 text-white font-normal font-ubuntu mt-10 p-2 rounded-md bg-loomiPurple hover:purple-600"
               >
                 Entrar
-              </Button>
+                {loading && (
+                  <Icon
+                    as={AiOutlineLoading}
+                    height={5}
+                    width={5}
+                    className="ml-3 transition-all animate-spin"
+                  />
+                )}
+              </button>
             </div>
           </form>
         </div>

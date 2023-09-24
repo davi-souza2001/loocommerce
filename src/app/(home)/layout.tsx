@@ -1,12 +1,6 @@
-import { Metadata } from 'next'
+'use client'
 import { Header } from './components/Header'
 import { SideBar } from './components/SideBar'
-import { SideBarProvider } from '@/service/context/SideBarContext'
-
-export const metadata: Metadata = {
-  title: 'Loocommerce - Home',
-  description: 'View the data of purchases made in your ecommerce',
-}
 
 export default function HomeLayout({
   children,
@@ -15,11 +9,9 @@ export default function HomeLayout({
 }) {
   return (
     <>
-      <SideBarProvider>
-        <Header />
-        <SideBar />
-        {children}
-      </SideBarProvider>
+      <Header />
+      <SideBar />
+      {children}
     </>
   )
 }

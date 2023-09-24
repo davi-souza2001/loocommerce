@@ -16,11 +16,15 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        background: "url('/background.svg')",
+      },
       fontFamily: {
-        poppins: ['poppins', 'sans-serif'],
-        roboto: ['roboto', 'sans-serif'],
+        nunito: ['Nunito', 'sans-serif'],
+        ubuntu: ['Ubuntu', 'sans-serif'],
       },
       colors: {
+        loomiPurple: '#5A4CA7',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

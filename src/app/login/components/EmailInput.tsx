@@ -8,7 +8,7 @@ interface EmailInputProps {
 export function EmailInput(props: EmailInputProps) {
   return (
     <>
-      <Text mb="8px" className="text-black font-medium font-roboto">
+      <Text mb="8px" className="text-black font-normal font-ubuntu">
         E-mail
       </Text>
       <Input

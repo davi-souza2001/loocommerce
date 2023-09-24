@@ -12,7 +12,7 @@ export function PasswordInput(props: PasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false)
   return (
     <>
-      <Text mb="8px" className="text-black font-medium font-roboto">
+      <Text mb="8px" className="text-black font-normal font-ubuntu">
         Senha
       </Text>
       <div className="flex items-center justify-center">

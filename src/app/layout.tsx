@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { ChakraProvider } from '@chakra-ui/react'
 import './globals.css'
+import { AuthProvider } from '@/service/context/AuthContext'
 
 export const metadata: Metadata = {
-  title: 'Loocommerce - Login',
+  title: 'Loocommerce',
   description: 'View the data of purchases made in your ecommerce',
 }
 
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ChakraProvider>{children}</ChakraProvider>
+        <AuthProvider>
+          <ChakraProvider>{children}</ChakraProvider>
+        </AuthProvider>
       </body>
     </html>
   )
