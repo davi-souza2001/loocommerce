@@ -14,7 +14,7 @@ const createProductFormSchema = z.object({
     .string()
     .nonempty('O nome é obrigatório!')
     .min(6, 'O nome precisa ter no mínimo 6 caracteres!'),
-  id: z.string().nonempty('O nome é obrigatório!'),
+  id: z.string().nonempty('O id é obrigatório!'),
   code: z.string().nonempty('O código é obrigatório!'),
   seller: z.string().nonempty('O vendedor é obrigatório!'),
   deadline: z.string().nonempty('O prazo é obrigatório!'),
@@ -67,16 +67,23 @@ export default function FormPage() {
                   valueCode={register('code')}
                   valueSeller={register('seller')}
                   valueDeadline={register('deadline')}
+                  errorsName={errors.name?.message}
+                  errorsId={errors.id?.message}
+                  errorsCode={errors.code?.message}
+                  errorsSeller={errors.seller?.message}
+                  errorsDeadline={errors.deadline?.message}
                 />
                 <ProductSelectForm
                   title="Categorias"
                   placeholder="Selecionar categoria"
                   value={register('categories')}
+                  errors={errors.categories?.message}
                 />
                 <ProductSelectForm
                   title="Tags"
                   placeholder="Tags"
                   value={register('tags')}
+                  errors={errors.tags?.message}
                 />
               </div>
               <ProductSpecificationForm
