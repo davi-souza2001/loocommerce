@@ -17,7 +17,7 @@ const createLoginFormSchema = z.object({
     .toLowerCase(),
   password: z
     .string()
-    .nonempty('A senha é obrigatório!')
+    .nonempty('A senha é obrigatória!')
     .min(6, 'A senha precisa ter no mínimo 6 caracteres!'),
 })
 
@@ -37,7 +37,7 @@ export default function Login() {
 
   async function handleLoginUser(data: CreateLoginFormData) {
     try {
-      alert(data)
+      console.log(data)
       push('/')
     } catch (error: any) {
       toast({

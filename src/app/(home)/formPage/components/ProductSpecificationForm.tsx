@@ -1,6 +1,13 @@
 import { Input, Textarea, Text } from '@chakra-ui/react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
-export function ProductSpecificationForm() {
+interface ProductSpecificationFormProps {
+  valueSubtitle: UseFormRegisterReturn<'subtitle'>
+  valueInformations: UseFormRegisterReturn<'informations'>
+  valueCleanup: UseFormRegisterReturn<'cleanup'>
+}
+
+export function ProductSpecificationForm(props: ProductSpecificationFormProps) {
   return (
     <div className="p-5 flex flex-col items-start justify-center bg-purple-200">
       <p className="font-medium text-xl mb-8">Especificações</p>
@@ -11,6 +18,7 @@ export function ProductSpecificationForm() {
           padding={'5'}
           borderRadius={'5'}
           backgroundColor={'gray.200'}
+          {...props.valueSubtitle}
         />
       </div>
       <div className="h-20 w-full mb-3 flex items-center justify-between bg-yellow-200">
@@ -22,6 +30,7 @@ export function ProductSpecificationForm() {
           height={'4rem'}
           backgroundColor={'gray.200'}
           resize={'none'}
+          {...props.valueInformations}
         />
       </div>
       <div className="h-20 w-full mb-3 flex items-center justify-between bg-yellow-200">
@@ -33,6 +42,7 @@ export function ProductSpecificationForm() {
           height={'4rem'}
           backgroundColor={'gray.200'}
           resize={'none'}
+          {...props.valueCleanup}
         />
       </div>
     </div>

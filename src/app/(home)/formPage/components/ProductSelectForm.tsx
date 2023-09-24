@@ -1,8 +1,10 @@
 import { Select } from '@chakra-ui/react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
 interface ProductSelectFormProps {
   title: string
   placeholder: string
+  value: UseFormRegisterReturn<'categories' | 'tags'>
 }
 
 export function ProductSelectForm(props: ProductSelectFormProps) {
@@ -15,6 +17,7 @@ export function ProductSelectForm(props: ProductSelectFormProps) {
           placeholder={props.placeholder}
           height={'9'}
           backgroundColor={'gray.200'}
+          {...props.value}
         >
           <option value="option2">Mês</option>
           <option value="option3">Dia</option>
