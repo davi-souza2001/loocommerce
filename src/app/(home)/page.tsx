@@ -7,6 +7,7 @@ import {
   CardProps,
 } from './components/CardMissingProducts'
 import { GainChart } from './components/GainChart'
+import { PerformedChart } from './components/PerformedChart'
 
 interface SalesProps {
   value: number
@@ -20,6 +21,8 @@ export default async function Home() {
   const salePerMonth = sales.data.map((sales: SalesProps) => sales.value)
   const monthlyProfit = await client.get('/profit-expectation-per-month')
   const realMonthlyProfit = await client.get('/profit-per-month')
+  const orders = await client.get('/orders-per-month')
+  const canceledOrders = await client.get('/canceled-orders-per-month')
 
   return (
     <main className="w-full flex z-0 bg-background">
@@ -77,14 +80,13 @@ export default async function Home() {
               },
             ]}
           />
-
           <GainChart
             monthlyProfit={monthlyProfit.data}
             realMonthlyProfit={realMonthlyProfit.data}
           />
-          <GainChart
-            monthlyProfit={monthlyProfit.data}
-            realMonthlyProfit={realMonthlyProfit.data}
+          <PerformedChart
+            orders={orders.data}
+            canceledOrders={canceledOrders.data}
           />
         </div>
         <ProductList />
