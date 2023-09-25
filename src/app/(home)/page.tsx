@@ -1,13 +1,8 @@
-'use client'
-import dynamic from 'next/dynamic'
-
 import { Card } from './components/Card'
-import GraphicCard from './components/GraphicCard'
 import { ProductList } from './components/ProductList'
+import { Graphic } from './components/Graphic'
 
 export default function Home() {
-  const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
-
   const series = [
     {
       name: 'test',
@@ -25,72 +20,47 @@ export default function Home() {
         <div className="w-full p-3 grid min-[1618px]:grid-cols-6 min-[1156px]:grid-cols-4 grid-cols-3 gap-5 overflow-x-auto scrollbar-none ">
           <Card
             title="Ticket médio últimas 24h"
-            subtitle="+15%"
             details="em relação a ontem"
+            endPoint={'/avg-ticket-day'}
+            type="ticket"
           />
           <Card
             title="Ticket médio mensal"
-            subtitle="+15%"
             details="em relação a julho"
+            endPoint={'/avg-ticket-month'}
+            type="ticket"
           />
-          <Card title="Produtos em manutenção" subtitle="há 5 dias" negative />
+          <Card
+            title="Produtos em manutenção"
+            endPoint={'/alerts'}
+            negative
+            type="products"
+          />
           <Card
             title="Acabando o estoque"
-            subtitle="há 5 dias"
+            endPoint={'/alerts'}
             negative
             details="repor o quanto antes"
+            type="products"
           />
           <Card
             title="Pedidos realizados no mês"
-            subtitle="+15%"
             details="em relação a julho"
+            endPoint={'/orders-month'}
+            type="orders"
           />
           <Card
             title="Produtos vendidos no mês"
-            subtitle="+15%"
             details="em relação a julho"
+            endPoint={'/orders-month'}
+            type="products"
           />
         </div>
         <h2 className="text-2xl font-bold text-purple-800 my-8 ml-10">
           Dashboard de vendas
         </h2>
         <div className="w-full flex">
-          <GraphicCard title="Pedidos do mês" select>
-            <ApexChart
-              type="line"
-              options={{
-                plotOptions: {
-                  bar: {
-                    borderRadius: 2,
-                  },
-                },
-                xaxis: {
-                  categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec',
-                  ],
-                },
-                yaxis: {
-                  labels: {
-                    show: false,
-                  },
-                },
-              }}
-              series={series}
-              height={200}
-              width={500}
-            />
-          </GraphicCard>
+          <Graphic series={series} />
         </div>
         <ProductList />
       </div>

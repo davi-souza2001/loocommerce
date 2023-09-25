@@ -34,7 +34,6 @@ export function AuthProvider(props: any) {
         },
       })
       const name = nameInEmail(email)
-      console.log('req.data :>> ', req.data)
       setCookie('tokenLoocommerce', req.data)
       if (name) {
         setUser(name)
