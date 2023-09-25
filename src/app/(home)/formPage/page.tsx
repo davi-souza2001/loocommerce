@@ -8,25 +8,37 @@ import { ProductSpecificationForm } from './components/ProductSpecificationForm'
 import { Icon, useToast } from '@chakra-ui/react'
 import { BiPlus } from 'react-icons/bi'
 import { ProductItemsForm } from './components/ProductItemsForm'
+import { useState } from 'react'
+import { client } from '@/data/client'
+import { AiOutlineLoading } from 'react-icons/ai'
 
 const createProductFormSchema = z.object({
-  name: z.string().nonempty('O nome é obrigatório!'),
+  productId: z.string().nonempty('O nome é obrigatório!'),
   id: z.string().nonempty('O id é obrigatório!'),
   code: z.string().nonempty('O código é obrigatório!'),
   seller: z.string().nonempty('O vendedor é obrigatório!'),
-  deadline: z.string().nonempty('O prazo é obrigatório!'),
-  categories: z.string().nonempty('A categoria é obrigatória!'),
-  tags: z.string().nonempty('A tag é obrigatória!'),
-  subtitle: z.string().nonempty('O subtítulo é obrigatório!'),
-  informations: z.string().nonempty('As informações são obrigatórias!'),
-  cleanup: z.string().nonempty('A limpeza é obrigatória!'),
+  deliveryDate: z
+    .string()
+    .nonempty('A data é obrigatória!')
+    .transform((val) => new Date(val).getTime()),
+  categories: z
+    .string()
+    .nonempty('A categoria é obrigatória!')
+    .transform((val) => [val]),
+  tags: z
+    .string()
+    .nonempty('A tag é obrigatória!')
+    .transform((val) => [val]),
+  specificationsSubtitle: z.string().nonempty('O subtítulo é obrigatório!'),
+  specificationsInfo: z.string().nonempty('As informações são obrigatórias!'),
+  specificationsCares: z.string().nonempty('A limpeza é obrigatória!'),
   items: z.array(
     z.object({
       code: z.string().nonempty('O código é obrigatório!'),
       color: z.string().nonempty('A cor é obrigatória!'),
-      mxOne: z.string().nonempty('O mxOne é obrigatório!'),
-      mxTwo: z.string().nonempty('O mxTwo é obrigatório!'),
-      m: z.string().nonempty('O m é obrigatório!'),
+      width: z.string().nonempty('A largura é obrigatória!'),
+      height: z.string().nonempty('A altura é obrigatória!'),
+      length: z.string().nonempty('O tamanho é obrigatório!'),
     }),
   ),
 })
@@ -35,6 +47,7 @@ type CreateProductFormData = z.infer<typeof createProductFormSchema>
 
 export default function FormPage() {
   const toast = useToast()
+  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -44,14 +57,38 @@ export default function FormPage() {
     resolver: zodResolver(createProductFormSchema),
   })
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     name: 'items',
     control,
   })
 
   async function handleSubmitProduct(data: CreateProductFormData) {
+    setLoading(true)
     try {
-      console.log(data)
+      const formattedItems = data.items.map((item) => {
+        return {
+          code: item.code,
+          color: item.color,
+          size: {
+            width: parseInt(item.width),
+            height: parseInt(item.height),
+            length: parseInt(item.length),
+          },
+        }
+      })
+
+      const formattedData = { ...data, items: formattedItems }
+
+      await client.post('/create-product', formattedData)
+
+      toast({
+        title: 'Enviado com sucesso!',
+        description: 'produto enviado.',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+        position: 'top-right',
+      })
     } catch (error: any) {
       toast({
         title: 'Erro ao enviar!',
@@ -61,6 +98,8 @@ export default function FormPage() {
         isClosable: true,
         position: 'top-right',
       })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -69,21 +108,24 @@ export default function FormPage() {
       <div className="w-28" />
       <div className="w-full mt-16">
         <h1 className="text-2xl font-semibold my-8 ml-10">Adicionar Produto</h1>
-        <div className="w-full rounded-md shadow-md bg-red-100">
-          <form className="mx-5" onSubmit={handleSubmit(handleSubmitProduct)}>
-            <div className="h-full w-full bg-blue-200">
+        <div className="w-full ">
+          <form
+            className="mx-5 p-2"
+            onSubmit={handleSubmit(handleSubmitProduct)}
+          >
+            <div className="h-full w-full rounded-md shadow-md">
               <div className="h-full w-full grid min-[1708px]:grid-cols-3 min-[1195px]:grid-cols-2 grid-cols-1">
                 <ProductDetailsForm
-                  valueName={register('name')}
+                  valueName={register('productId')}
                   valueId={register('id')}
                   valueCode={register('code')}
                   valueSeller={register('seller')}
-                  valueDeadline={register('deadline')}
-                  errorsName={errors.name?.message}
+                  valueDeadline={register('deliveryDate')}
+                  errorsName={errors.productId?.message}
                   errorsId={errors.id?.message}
                   errorsCode={errors.code?.message}
                   errorsSeller={errors.seller?.message}
-                  errorsDeadline={errors.deadline?.message}
+                  errorsDeadline={errors.deliveryDate?.message}
                 />
                 <ProductSelectForm
                   title="Categorias"
@@ -99,17 +141,16 @@ export default function FormPage() {
                 />
               </div>
               <ProductSpecificationForm
-                valueSubtitle={register('subtitle')}
-                valueInformations={register('informations')}
-                valueCleanup={register('cleanup')}
-                errorsSubtitle={errors.subtitle?.message}
-                errorsInformations={errors.informations?.message}
-                errorsCleanup={errors.cleanup?.message}
+                valueSubtitle={register('specificationsSubtitle')}
+                valueInformations={register('specificationsInfo')}
+                valueCleanup={register('specificationsCares')}
+                errorsSubtitle={errors.specificationsSubtitle?.message}
+                errorsInformations={errors.specificationsInfo?.message}
+                errorsCleanup={errors.specificationsCares?.message}
               />
             </div>
-            <div className="h-full w-full bg-green-200">
-              {/* start items */}
-              <div className="p-5 flex flex-col items-start justify-center">
+            <div className="h-full w-full">
+              <div className="p-5 mt-5 rounded-md shadow-md flex flex-col items-start justify-center">
                 <div className="w-full flex items-center justify-between">
                   <p className="font-medium text-xl mb-8">Itens</p>
                   <button
@@ -119,9 +160,9 @@ export default function FormPage() {
                       append({
                         code: '',
                         color: '',
-                        mxOne: '',
-                        mxTwo: '',
-                        m: '',
+                        width: '',
+                        height: '',
+                        length: '',
                       })
                     }
                   >
@@ -137,23 +178,30 @@ export default function FormPage() {
                         itemPosition={index}
                         valueCode={register(`items.${index}.code`)}
                         valueColor={register(`items.${index}.color`)}
-                        valueMxOne={register(`items.${index}.mxOne`)}
-                        valueMxTwo={register(`items.${index}.mxTwo`)}
-                        valueM={register(`items.${index}.m`)}
+                        width={register(`items.${index}.width`)}
+                        height={register(`items.${index}.height`)}
+                        length={register(`items.${index}.length`)}
                       />
                     </div>
                   )
                 })}
               </div>
-              {/* ends items */}
             </div>
             <div className="h-20 w-full gap-5 flex items-center justify-end">
+              {loading && (
+                <Icon
+                  as={AiOutlineLoading}
+                  height={5}
+                  width={5}
+                  className="ml-3 transition-all animate-spin"
+                />
+              )}
               <button className="bg-gray-300 p-2 rounded-md transition-all hover:bg-gray-400">
                 cancelar
               </button>
               <button
                 type="submit"
-                className="bg-blue-100 p-2 rounded-md transition-all hover:bg-blue-200"
+                className="bg-[#C0D7E5] p-2 rounded-md transition-all hover:bg-[#afc9d8]"
               >
                 enviar
               </button>

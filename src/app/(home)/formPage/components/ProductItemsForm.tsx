@@ -9,9 +9,9 @@ interface ProductItemsFormProps {
   errors: any
   valueCode: UseFormRegisterReturn<`items.${number}.code`>
   valueColor: UseFormRegisterReturn<`items.${number}.color`>
-  valueMxOne: UseFormRegisterReturn<`items.${number}.mxOne`>
-  valueMxTwo: UseFormRegisterReturn<`items.${number}.mxTwo`>
-  valueM: UseFormRegisterReturn<`items.${number}.m`>
+  width: UseFormRegisterReturn<`items.${number}.width`>
+  height: UseFormRegisterReturn<`items.${number}.height`>
+  length: UseFormRegisterReturn<`items.${number}.length`>
 }
 
 export function ProductItemsForm(props: ProductItemsFormProps) {
@@ -29,86 +29,93 @@ export function ProductItemsForm(props: ProductItemsFormProps) {
         <Separator className="h-[1px] w-full bg-slate-600" />
       </div>
       <div className="h-full w-full mt-2 flex flex-col">
-        <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
+        <div className="h-16 w-full flex items-center justify-between">
           <Text className="font-medium mr-9">Código: </Text>
-          <Input
-            size="sm"
-            padding={'5'}
-            borderRadius={'5'}
-            backgroundColor={'gray.200'}
-            {...props.valueCode}
-          />
-          {props.errors?.items ? (
-            <ErrorMessage
-              error={props.errors.items[props.itemPosition]?.code?.message}
+          <div className="w-full flex-col">
+            <Input
+              size="sm"
+              padding={'5'}
+              borderRadius={'5'}
+              backgroundColor={'#F3F5F6'}
+              {...props.valueCode}
             />
-          ) : (
-            false
-          )}
+            {props.errors?.items ? (
+              <ErrorMessage
+                error={props.errors.items[props.itemPosition]?.code?.message}
+              />
+            ) : (
+              false
+            )}
+          </div>
         </div>
-        <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
+        <div className="h-16 w-full flex items-center justify-between">
           <Text className="font-medium mr-16">Cor: </Text>
-          <Input
-            size="sm"
-            padding={'5'}
-            borderRadius={'5'}
-            backgroundColor={'gray.200'}
-            {...props.valueColor}
-          />
-          {props.errors?.items ? (
-            <ErrorMessage
-              error={props.errors.items[props.itemPosition]?.color?.message}
+          <div className="w-full flex-col">
+            <Input
+              size="sm"
+              padding={'5'}
+              borderRadius={'5'}
+              backgroundColor={'#F3F5F6'}
+              {...props.valueColor}
             />
-          ) : (
-            false
-          )}
+            {props.errors?.items ? (
+              <ErrorMessage
+                error={props.errors.items[props.itemPosition]?.color?.message}
+              />
+            ) : (
+              false
+            )}
+          </div>
         </div>
-        <div className="h-16 w-full flex items-center justify-between bg-yellow-200">
+        <div className="h-16 w-full flex items-center justify-between">
           <Text className="font-medium mr-10">Tamanho: </Text>
           <Input
+            type="number"
             size="sm"
             width={'16'}
             padding={'5'}
             borderRadius={'5'}
-            backgroundColor={'gray.200'}
-            {...props.valueMxOne}
+            backgroundColor={'#F3F5F6'}
+            {...props.width}
           />
-          <p>m x</p>
+          <p>Largura</p>
           {props.errors?.items ? (
             <ErrorMessage
-              error={props.errors.items[props.itemPosition]?.mxOne?.message}
+              error={props.errors.items[props.itemPosition]?.width?.message}
             />
           ) : (
             false
           )}
           <Input
+            type="number"
             size="sm"
             width={'16'}
             padding={'5'}
             borderRadius={'5'}
-            backgroundColor={'gray.200'}
-            {...props.valueMxTwo}
+            backgroundColor={'#F3F5F6'}
+            {...props.height}
           />
-          <p>m x</p>
+          <p>altura</p>
           {props.errors?.items ? (
             <ErrorMessage
-              error={props.errors.items[props.itemPosition]?.mxTwo?.message}
+              error={props.errors.items[props.itemPosition]?.height?.message}
             />
           ) : (
             false
           )}
           <Input
+            type="number"
             size="sm"
             width={'16'}
             padding={'5'}
             borderRadius={'5'}
-            backgroundColor={'gray.200'}
-            {...props.valueM}
+            backgroundColor={'#F3F5F6'}
+            {...props.length}
           />
-          <p>m</p>
+          <p>tamanho</p>
           {props.errors?.items ? (
             <ErrorMessage
-              error={props.errors.items[props.itemPosition]?.m?.message}
+              error={props.errors.items[props.itemPosition]?.length?.message}
             />
           ) : (
             false

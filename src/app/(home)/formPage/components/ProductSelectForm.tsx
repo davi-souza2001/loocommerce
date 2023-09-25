@@ -11,14 +11,14 @@ interface ProductSelectFormProps {
 
 export function ProductSelectForm(props: ProductSelectFormProps) {
   return (
-    <div className="p-5 flex flex-col items-start justify-start bg-purple-200">
+    <div className="p-5 flex flex-col items-start justify-start">
       <p className="font-medium text-xl mb-8">{props.title}</p>
-      <div className="h-16 w-[30rem] flex flex-col items-center justify-center bg-yellow-200">
+      <div className="h-16 w-[30rem] flex flex-col items-center justify-center">
         <Select
           defaultValue={'ano'}
           placeholder={props.placeholder}
           height={'9'}
-          backgroundColor={'gray.200'}
+          backgroundColor={'#F3F5F6'}
           {...props.value}
         >
           <option value="option2">Mês</option>
