@@ -16,9 +16,14 @@ interface CardProps {
 export async function Card(props: CardProps) {
   const req = await client.get(props.endPoint)
   const value = parseFloat(JSON.stringify(req.data.value))
-  const formatterTicket = value.toFixed(2).replace('.', ',')
-
   const growth = parseFloat(JSON.stringify(req.data.growth))
+
+  function formattedValue(value: number) {
+    const parts = value.toFixed(2).toString().split('.')
+    const formattedNumber =
+      parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + parts[1]
+    return formattedNumber
+  }
 
   return (
     <ChakraCard className="min-h-40 w-64 shadow-md">
@@ -37,7 +42,7 @@ export async function Card(props: CardProps) {
         <div className="mt-3 w-full flex items-center justify-start font-normal">
           {props.type === 'ticket' && (
             <p>
-              R$ <strong className="font-bold">{formatterTicket}</strong>
+              R$ <strong className="font-bold">{formattedValue(value)}</strong>
             </p>
           )}
 

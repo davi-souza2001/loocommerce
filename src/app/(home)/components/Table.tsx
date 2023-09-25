@@ -1,79 +1,40 @@
+'use client'
 import Image from 'next/image'
 import Chair from '../../../../public/chair.png'
-import { BiCheck } from 'react-icons/bi'
+import { Dispatch, SetStateAction } from 'react'
 import { Icon } from '@chakra-ui/react'
+import { AiOutlineLoading } from 'react-icons/ai'
 
-interface products {
-  nome: string
-  cores: string
-  especificacoes: string[]
+export interface Products {
+  id: string
+  name: string
+  color: string
   status: string
+  description: string
 }
 
-interface TableProps {
-  data: products[]
-  currentPage: number
-  itemsPerPage: number
+interface ProductsProps {
+  products: Products[]
+  loading: boolean
+  pagination: number
+  setPagination: Dispatch<SetStateAction<number>>
 }
 
-export function Table() {
-  const products: products[] = [
-    {
-      nome: 'Banco Cajá',
-      cores: 'Madeira escura; Madeira média',
-      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
-      status: 'Ativo',
-    },
-    {
-      nome: 'Produto 2',
-      cores: 'Madeira escura; Madeira média',
-      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
-      status: 'Inativo',
-    },
-    {
-      nome: 'Produto 3',
-      cores: 'Madeira escura; Madeira média',
-      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
-      status: 'Inativo',
-    },
-    {
-      nome: 'Produto 4',
-      cores: 'Madeira escura; Madeira média',
-      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
-      status: 'Inativo',
-    },
-    {
-      nome: 'Produto 5',
-      cores: 'Madeira escura; Madeira média',
-      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
-      status: 'Inativo',
-    },
-    {
-      nome: 'Produto 6',
-      cores: 'Madeira escura; Madeira média',
-      especificacoes: ['banco', 'sem braço', 'sala de jantar'],
-      status: 'Inativo',
-    },
-  ]
-
-  function renderTableData({ currentPage, data, itemsPerPage }: TableProps) {
-    const startIndex = (currentPage - 1) * itemsPerPage
-    const endIndex = startIndex + itemsPerPage
-    const currentItems = data.slice(startIndex, endIndex)
-
-    return (
+export function Table(props: ProductsProps) {
+  return (
+    <div className="h-full w-full flex flex-col">
       <table className="min-w-full border-collapse rounded-md">
         <thead className="h-10 bg-gray-700 font-bold text-white">
           <tr>
             <th className="border w-1/4 p-3 rounded-l-md">PRODUTOS</th>
-            <th className="border w-2/4 p-3">CORES</th>
+            <th className="border w-1/4 p-3">CORES</th>
             <th className="border w-2/4 p-3">ESPECIFICAÇÕES</th>
             <th className="border w-2/4 p-3 rounded-r-md">STATUS</th>
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((product, index) => (
-            <tr key={index} className="font-normal">
+          {props.products.map((product) => (
+            <tr key={product.id} className="font-normal">
               <td className="border-b p-3">
                 <div className="flex items-center justify-start">
                   <Image
@@ -83,18 +44,14 @@ export function Table() {
                     width={60}
                     className="rounded-md"
                   />
-                  <p className="ml-2">{product.nome}</p>
+                  <p className="ml-2">{product.name}</p>
                 </div>
               </td>
-              <td className="border p-3">{product.cores}</td>
-              <td className="h-full border gap-7">
-                {product.especificacoes.map((item, index) => (
-                  <p key={index} className="p-2">
-                    {item}
-                  </p>
-                ))}
+              <td className="border p-3">{product.color}</td>
+              <td className="h-full p-2 border gap-7">
+                <p className="p-2">{product.description}</p>
               </td>
-              <td className="border p-3">
+              <td className="border p-7">
                 <div className="flex items-center justify-center">
                   {product.status}
                   <Image
@@ -109,16 +66,38 @@ export function Table() {
           ))}
         </tbody>
       </table>
-    )
-  }
-
-  return (
-    <>
-      {renderTableData({
-        data: products,
-        currentPage: 1,
-        itemsPerPage: 3,
-      })}
-    </>
+      <div className="h-16 w-full font-normal flex items-center justify-end">
+        <div className="h-full w-48 flex items-center justify-between">
+          {props.loading && (
+            <Icon
+              as={AiOutlineLoading}
+              height={5}
+              width={5}
+              className="ml-3 transition-all animate-spin"
+            />
+          )}
+          <p>{props.pagination} de 6</p>
+          <div className="flex items-center justify-center mr-5">
+            <button
+              disabled={props.pagination === 1}
+              onClick={() => props.setPagination((state) => state - 1)}
+            >
+              <Image alt="arrow" src={'arrowLeft.svg'} width={40} height={40} />
+            </button>
+            <button
+              disabled={props.pagination === 6}
+              onClick={() => props.setPagination((state) => state + 1)}
+            >
+              <Image
+                alt="arrow"
+                src={'arrowRight.svg'}
+                width={40}
+                height={40}
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
