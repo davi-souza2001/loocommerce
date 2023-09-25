@@ -14,8 +14,8 @@ interface GraphicCardProps {
 
 export default function GraphicCard(props: GraphicCardProps) {
   return (
-    <ChakraCard className="min-h-40 mr-5">
-      <CardHeader className="mb-[-30PX] w-full flex items-center justify-between">
+    <ChakraCard className="min-h-40 w-[35rem] mt-5 mr-5">
+      <CardHeader className="mb-[-30PX] flex items-center justify-between">
         <Heading size="sm">{props.title}</Heading>
         {props?.select && (
           <Select

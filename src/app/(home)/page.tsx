@@ -1,22 +1,25 @@
 import { Card } from './components/Card'
 import { ProductList } from './components/ProductList'
-import { Graphic } from './components/Graphic'
+import { OrderChart } from './components/OrderChart'
 import { client } from '@/data/client'
 import {
   CardMissingProducts,
   CardProps,
 } from './components/CardMissingProducts'
+import { GainChart } from './components/GainChart'
+
+interface SalesProps {
+  value: number
+  month: number
+}
 
 export default async function Home() {
-  const req = await client.get('/alerts')
-  const series = [
-    {
-      name: 'test',
-      type: 'column',
-      data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160],
-      color: 'black',
-    },
-  ]
+  const alerts = await client.get('/alerts')
+  const keepingProducts = alerts.data
+  const sales = await client.get('/sells-per-month')
+  const salePerMonth = sales.data.map((sales: SalesProps) => sales.value)
+  const monthlyProfit = await client.get('/profit-expectation-per-month')
+  const realMonthlyProfit = await client.get('/profit-per-month')
 
   return (
     <main className="w-full flex z-0 bg-background">
@@ -36,7 +39,7 @@ export default async function Home() {
             endPoint={'/avg-ticket-month'}
             type="ticket"
           />
-          {req.data.map((pro: CardProps, index: any) => {
+          {keepingProducts.map((pro: CardProps, index: number) => {
             return (
               <CardMissingProducts
                 since={pro.since}
@@ -64,8 +67,25 @@ export default async function Home() {
         <h2 className="text-2xl font-bold text-purple-800 my-8 ml-10">
           Dashboard de vendas
         </h2>
-        <div className="w-full flex">
-          <Graphic series={series} />
+        <div className="w-full p-2 grid grid-cols-1 min-[1268px]:grid-cols-2  min-[1800px]:grid-cols-3">
+          <OrderChart
+            series={[
+              {
+                type: 'column',
+                data: salePerMonth,
+                color: 'black',
+              },
+            ]}
+          />
+
+          <GainChart
+            monthlyProfit={monthlyProfit.data}
+            realMonthlyProfit={realMonthlyProfit.data}
+          />
+          <GainChart
+            monthlyProfit={monthlyProfit.data}
+            realMonthlyProfit={realMonthlyProfit.data}
+          />
         </div>
         <ProductList />
       </div>

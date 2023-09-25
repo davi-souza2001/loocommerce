@@ -6,7 +6,7 @@ interface GraphicProps {
   series: any
 }
 
-export function Graphic(props: GraphicProps) {
+export function OrderChart(props: GraphicProps) {
   const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
   return (
@@ -14,6 +14,9 @@ export function Graphic(props: GraphicProps) {
       <ApexChart
         type="line"
         options={{
+          chart: {
+            width: 300,
+          },
           plotOptions: {
             bar: {
               borderRadius: 2,
