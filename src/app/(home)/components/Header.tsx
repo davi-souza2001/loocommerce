@@ -9,8 +9,8 @@ export function Header() {
       <div className="h-full w-20 flex items-center justify-center">
         <div className="h-14 w-14 rounded-full bg-red-500" />
       </div>
-      <div className="h-full w-28 flex items-center justify-around">
-        <p>{user || 'Nome de usuário inválido'}</p>
+      <div className="h-full flex items-center justify-around">
+        <p className="mr-5">{user ?? 'Nome de usuário inválido'}</p>
         <Wrap>
           <WrapItem>
             <Avatar
