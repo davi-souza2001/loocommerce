@@ -1,8 +1,14 @@
 import { Card } from './components/Card'
 import { ProductList } from './components/ProductList'
 import { Graphic } from './components/Graphic'
+import { client } from '@/data/client'
+import {
+  CardMissingProducts,
+  CardProps,
+} from './components/CardMissingProducts'
 
-export default function Home() {
+export default async function Home() {
+  const req = await client.get('/alerts')
   const series = [
     {
       name: 'test',
@@ -30,19 +36,18 @@ export default function Home() {
             endPoint={'/avg-ticket-month'}
             type="ticket"
           />
-          <Card
-            title="Produtos em manutenção"
-            endPoint={'/alerts'}
-            negative
-            type="products"
-          />
-          <Card
-            title="Acabando o estoque"
-            endPoint={'/alerts'}
-            negative
-            details="repor o quanto antes"
-            type="products"
-          />
+          {req.data.map((pro: CardProps, index: any) => {
+            return (
+              <CardMissingProducts
+                since={pro.since}
+                details={pro.details}
+                type={pro.type}
+                value={pro.value}
+                stock={index === 1}
+                key={index}
+              />
+            )
+          })}
           <Card
             title="Pedidos realizados no mês"
             details="em relação a julho"
