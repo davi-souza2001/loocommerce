@@ -2,7 +2,7 @@
 import Head from 'next/head'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import coordinates from '../../../../geoJSON.json'
 
 export default function MapPage() {
