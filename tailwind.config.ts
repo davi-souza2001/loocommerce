@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      left: {
+        calc: 'calc(50% - 50px)',
+      },
       backgroundImage: {
         background: "url('/background.svg')",
       },
