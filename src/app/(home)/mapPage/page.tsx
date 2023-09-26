@@ -1,7 +1,10 @@
+import { client } from '@/data/client'
 import { BoxOrders } from './components/BoxOrders'
 import { Map } from './components/Map'
 
-export default function MapPage() {
+export default async function MapPage() {
+  const req = await client.get('/orders-month')
+
   return (
     <main className="w-full flex z-0">
       <div className="w-28" />
@@ -10,7 +13,7 @@ export default function MapPage() {
           Regiões de entrega
         </h1>
         <div className="h-full w-full">
-          <BoxOrders />
+          <BoxOrders orders={req.data.value} growth={req.data.growth} />
           <Map />
         </div>
       </div>
