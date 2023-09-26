@@ -3,45 +3,37 @@ import Head from 'next/head'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useEffect, useRef, useState } from 'react'
-import test from '../../../../geoJSON.json'
+import coordinates from '../../../../geoJSON.json'
 
 export default function MapPage() {
   mapboxgl.accessToken = process.env.NEXT_PUBLIC_URL_MAPBOX ?? ''
   const mapContainer = useRef('map')
   const map = useRef<mapboxgl.Map | null>(null)
-  const [lng, setLng] = useState(-70.9)
-  const [lat, setLat] = useState(42.35)
-  const [zoom, setZoom] = useState(9)
-
-  // const Map = new mapboxgl.Map({
-  //   container: 'map', // container ID
-  //   style: 'mapbox://styles/mapbox/streets-v12', // style URL
-  //   center: [-74.5, 40], // starting position [lng, lat]
-  //   zoom: 9, // starting zoom
-  // })
 
   useEffect(() => {
     if (map.current) return
     const mapLoaded = (map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v11',
-      center: [lng, lat],
-      zoom,
+      center: [-60.1245, 5.1619],
+      zoom: 6,
     }))
 
     mapLoaded.on('load', () => {
-      mapLoaded.addSource('earthquakes', {
+      mapLoaded.addSource('guyana', {
         type: 'geojson',
-        data: '../../../../geoJSON.json',
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        data: coordinates,
       })
 
       mapLoaded.addLayer({
-        id: 'maine',
+        id: 'guyana',
         type: 'fill',
-        source: 'maine', // reference the data source
+        source: 'guyana',
         layout: {},
         paint: {
-          'fill-color': '#0080ff', // blue color fill
+          'fill-color': '#5B4DA7',
           'fill-opacity': 0.5,
         },
       })
