@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -7,6 +7,20 @@ export function SideBar() {
   const [pageSelected, setPageSelected] = useState<'home' | 'form' | 'map'>(
     'home',
   )
+
+  useEffect(() => {
+    const url = window.location.href
+    const urlSplit = url.split('/')
+    const route = urlSplit[urlSplit.length - 1]
+
+    if (route === '') {
+      setPageSelected('home')
+    } else if (route === 'formPage') {
+      setPageSelected('form')
+    } else if (route === 'mapPage') {
+      setPageSelected('map')
+    }
+  }, [])
 
   return (
     <aside className="h-56 w-16 fixed left-4 top-20 text-black rounded-md shadow-md bg-white">
