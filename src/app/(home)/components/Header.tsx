@@ -13,11 +13,8 @@ export function Header() {
       <div className="h-full flex items-center justify-around">
         <p className="mr-5">{user ?? 'Nome de usuário inválido'}</p>
         <Wrap>
-          <WrapItem>
-            <Avatar
-              name="User Avatar"
-              src="https://avatars.githubusercontent.com/u/77704994?v=4"
-            />
+          <WrapItem className="rounded-full text-white mr-5">
+            <Avatar name={user} textColor={'white'} bg="#5A4CA7" />
           </WrapItem>
         </Wrap>
       </div>

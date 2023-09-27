@@ -14,6 +14,8 @@ import { client } from '@/data/client'
 import { useState, useEffect } from 'react'
 import { AiOutlineLoading } from 'react-icons/ai'
 
+export const revalidade = 60 * 60 * 24 // 24 hours
+
 export function ProductList() {
   const [products, setProducts] = useState<Products[]>([])
   const [pagination, setPagination] = useState(1)
@@ -42,6 +44,7 @@ export function ProductList() {
 
   useEffect(() => {
     getProductsBySearch(search)
+    setPagination(1)
   }, [search])
 
   return (
