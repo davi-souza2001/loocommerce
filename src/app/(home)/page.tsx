@@ -29,7 +29,7 @@ export default async function Home() {
       <div className="w-28" />
       <div className="w-full mt-16">
         <h1 className="text-2xl font-bold my-8 ml-10">Início</h1>
-        <div className="w-full p-3 grid min-[1618px]:grid-cols-6 min-[1156px]:grid-cols-4 grid-cols-3 gap-5 overflow-x-auto scrollbar-none ">
+        <div className="w-full p-3 grid min-[1618px]:grid-cols-6 min-[1156px]:grid-cols-4 min-[894px]:grid-cols-3 grid-cols-2 gap-5 overflow-x-auto scrollbar-none ">
           <Card
             title="Ticket médio últimas 24h"
             details="em relação a ontem"
