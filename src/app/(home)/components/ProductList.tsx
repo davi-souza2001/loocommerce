@@ -13,6 +13,7 @@ import { BiSearch } from 'react-icons/bi'
 import { client } from '@/data/client'
 import { useState, useEffect } from 'react'
 import { AiOutlineLoading } from 'react-icons/ai'
+import { UseDebounce } from '@/service/hooks/UseDebounce'
 
 export const revalidade = 60 * 60 * 24 // 24 hours
 
@@ -21,6 +22,7 @@ export function ProductList() {
   const [pagination, setPagination] = useState(1)
   const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState('')
+  const debouncedSearch = UseDebounce(search, 800)
 
   async function getProductsByPage(pagination: number) {
     setLoading(true)
@@ -43,9 +45,9 @@ export function ProductList() {
   }, [pagination])
 
   useEffect(() => {
-    getProductsBySearch(search)
+    getProductsBySearch(debouncedSearch)
     setPagination(1)
-  }, [search])
+  }, [debouncedSearch])
 
   return (
     <ChakraCard className="min-h-40 mr-10 mt-12">
