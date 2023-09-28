@@ -19,7 +19,6 @@ Loocommerce is a dashboard that returns orders and customers data from an ecomme
 ## Techs
 <div>
     <img alt="REACT" width="120" src="https://img.shields.io/badge/next.js-fff?style=for-the-badge&logo=next.js&logoColor=black"/>
-    <img alt="NODE" width="105" src="https://img.shields.io/badge/node-000?style=for-the-badge&logo=node.js&logoColor=green"/>
  </div>
  
 
